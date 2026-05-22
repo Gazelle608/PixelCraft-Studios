@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | PixelCraft Studios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🎨</span>
+                <span class="logo-text">PixelCraft<span class="logo-highlight">Studios</span></span>
+            </a>
+            
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="contact.html" class="btn-nav">Get Quote</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Our Services</h1>
+            <p class="page-subtitle">Comprehensive design solutions tailored to your needs</p>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What We <span class="highlight">Offer</span></h2>
+                <p class="section-subtitle">From brand identity to digital experiences, we've got you covered</p>
+            </div>
+            
+            <div class="services-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="branding">Brand Identity</button>
+                    <button class="tab-btn" data-tab="web">Web Design</button>
+                    <button class="tab-btn" data-tab="print">Print Design</button>
+                    <button class="tab-btn" data-tab="marketing">Marketing</button>
+                    <button class="tab-btn" data-tab="illustration">Illustration</button>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- Brand Identity Tab -->
+                    <div class="tab-pane active" id="branding">
+                        <div class="tab-grid">
+                            <div class="tab-image">
+                                <img src="images/logo/branding-service.jpg" alt="Brand Identity Design">
+                            </div>
+                            <div class="tab-details">
+                                <h3>Brand Identity Design</h3>
+                                <p>We create comprehensive brand identities that tell your unique story and connect with your target audience. Our process ensures consistency across all touchpoints.</p>
+                                
+                                <div class="service-features">
+                                    <h4>What's Included:</h4>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> Logo Design (3 concepts)</li>
+                                        <li><i class="fas fa-check"></i> Color Palette Development</li>
+                                        <li><i class="fas fa-check"></i> Typography System</li>
+                                        <li><i class="fas fa-check"></i> Brand Guidelines</li>
+                                        <li><i class="fas fa-check"></i> Business Card Design</li>
+                                        <li><i class="fas fa-check"></i> Social Media Kit</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="service-pricing">
+                                    <h4>Starting from: <span class="price">$2,500</span></h4>
+                                    <p>Package prices vary based on project scope</p>
+                                </div>
+                                
+                                <a href="contact.html" class="btn-primary">Get a Custom Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Web Design Tab -->
+                    <div class="tab-pane" id="web">
+                        <div class="tab-grid">
+                            <div class="tab-image">
+                                <img src="images/logo/web-service.jpg" alt="Web Design">
+                            </div>
+                            <div class="tab-details">
+                                <h3>Web Design & Development</h3>
+                                <p>We design and develop responsive, user-friendly websites that not only look great but also drive conversions and achieve business objectives.</p>
+                                
+                                <div class="service-features">
+                                    <h4>What's Included:</h4>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i> Custom Website Design</li>
+                                        <li><i class="fas fa-check"></i> Responsive Development</li>
+                                        <li><i class="fas fa-check"></i> UI/UX Optimization</li>
+                                        <li><i class="fas fa-check"></i> Content Management System</li>
+                                        <li><i class="fas fa-check"></i> SEO Optimization</li>
+                                        <li><i class="fas fa-check"></i> Training & Support</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="service-pricing">
+                                    <h4>Starting from: <span class="price">$4,000</span></h4>
+                                    <p>Package prices vary based on project scope</p>
+                                </div>
+                                
+                                <a href="contact.html" class="btn-primary">Get a Custom Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Other tabs follow similar structure -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Services -->
+    <section class="all-services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Complete Service <span class="highlight">List</span></h2>
+                <p class="section-subtitle">Explore all our design services in detail</p>
+            </div>
+            
+            <div class="service-list">
+                <div class="service-item" id="branding-service">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Brand Identity</h3>
+                        <p>Logo design, brand guidelines, visual identity systems, and brand strategy development.</p>
+                        <ul class="service-sublist">
+                            <li>Logo Design</li>
+                            <li>Brand Guidelines</li>
+                            <li>Business Stationery</li>
+                            <li>Brand Strategy</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-item" id="web-service">
+                    <div class="service-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Web & Digital Design</h3>
+                        <p>Website design, UI/UX, mobile apps, and digital product design.</p>
+                        <ul class="service-sublist">
+                            <li>Website Design</li>
+                            <li>UI/UX Design</li>
+                            <li>E-commerce Design</li>
+                            <li>Mobile App Design</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-item" id="print-service">
+                    <div class="service-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Print Design</h3>
+                        <p>Brochures, business cards, packaging, and all printed marketing materials.</p>
+                        <ul class="service-sublist">
+                            <li>Brochures & Catalogs</li>
+                            <li>Packaging Design</li>
+                            <li>Business Cards</li>
+                            <li>Annual Reports</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-item" id="marketing-service">
+                    <div class="service-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Marketing Design</h3>
+                        <p>Social media graphics, ads, email templates, and campaign materials.</p>
+                        <ul class="service-sublist">
+                            <li>Social Media Graphics</li>
+                            <li>Digital Ads</li>
+                            <li>Email Templates</li>
+                            <li>Presentation Design</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-item" id="illustration-service">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Illustration</h3>
+                        <p>Custom illustrations, icons, characters, and visual storytelling.</p>
+                        <ul class="service-sublist">
+                            <li>Custom Illustrations</li>
+                            <li>Icon Design</li>
+                            <li>Character Design</li>
+                            <li>Book Illustrations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Motion Graphics</h3>
+                        <p>Animated logos, explainer videos, and motion design for digital platforms.</p>
+                        <ul class="service-sublist">
+                            <li>Animated Logos</li>
+                            <li>Explainer Videos</li>
+                            <li>Social Media Animations</li>
+                            <li>UI Animations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="service-process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How We <span class="highlight">Work</span></h2>
+                <p class="section-subtitle">Our proven process for successful projects</p>
+            </div>
+            
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Consultation & Discovery</h3>
+                        <p>We start with a detailed consultation to understand your goals, audience, and vision.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Strategy & Planning</h3>
+                        <p>We develop a creative strategy and project plan tailored to your specific needs.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Design & Development</h3>
+                        <p>Our team creates initial concepts and designs, incorporating your feedback.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Review & Refinement</h3>
+                        <p>We present designs for your review and make refinements based on your feedback.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Delivery & Support</h3>
+                        <p>We deliver final files and provide support for implementation and launch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+                <p class="section-subtitle">Common questions about our services</p>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does a typical design project take?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Project timelines vary based on scope and complexity. A logo design typically takes 2-3 weeks, while a complete website design can take 6-8 weeks. We provide a detailed timeline at the start of each project.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is your payment structure?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We require a 50% deposit to begin work, with the remaining 50% due upon project completion. For larger projects, we can arrange milestone-based payments.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer revisions?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We include up to 3 rounds of revisions for all design concepts to ensure you're completely satisfied with the final result.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What file formats do you provide?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide all necessary file formats for your project. For logos, this includes vector files (AI, EPS, SVG), high-resolution PNGs, and JPGs. For websites, we provide all source files and documentation.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you work with international clients?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We work with clients worldwide and can accommodate different time zones through scheduled virtual meetings and efficient communication tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Design Project?</h2>
+                <p>Contact us for a free consultation and custom quote.</p>
+                <a href="contact.html" class="btn-primary btn-large">Get Your Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <span class="logo-icon">🎨</span>
+                        <span class="logo-text">PixelCraft<span class="logo-highlight">Studios</span></span>
+                    </a>
+                    <p>Crafting visual experiences that tell your brand's story and drive results.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#branding">Brand Identity</a></li>
+                        <li><a href="services.html#web">Web Design</a></li>
+                        <li><a href="services.html#print">Print Design</a></li>
+                        <li><a href="services.html#marketing">Marketing Design</a></li>
+                        <li><a href="services.html#illustration">Illustration</a></li>
+                    </ul>
+                </div>
+                
+                <!-- <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> hello@pixelcraftstudios.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Design Street, Creative City</li>
+                    </ul>
+                </div> -->
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 PixelCraft Studios. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart"></i> by PixelCraft Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

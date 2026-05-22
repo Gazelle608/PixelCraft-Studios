@@ -1,0 +1,349 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | PixelCraft Studios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🎨</span>
+                <span class="logo-text">PixelCraft<span class="logo-highlight">Studios</span></span>
+            </a>
+            
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html" class="active btn-nav">Get Quote</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Let's Create Together</h1>
+            <p class="page-subtitle">Get in touch to discuss your next design project</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h2>Send Us a Message</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                    
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="Your Name">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required placeholder="you@example.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company" placeholder="Your Company">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Interested In *</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="branding">Brand Identity</option>
+                                <option value="web">Web Design</option>
+                                <option value="print">Print Design</option>
+                                <option value="marketing">Marketing Design</option>
+                                <option value="illustration">Illustration</option>
+                                <option value="multiple">Multiple Services</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Project Budget *</label>
+                            <select id="budget" name="budget" required>
+                                <option value="" disabled selected>Select budget range</option>
+                                <option value="under-1000">Under $1,000</option>
+                                <option value="1000-3000">$1,000 - $3,000</option>
+                                <option value="3000-5000">$3,000 - $5,000</option>
+                                <option value="5000-10000">$5,000 - $10,000</option>
+                                <option value="10000-plus">$10,000+</option>
+                                <option value="not-sure">Not sure yet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Project Details *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Tell us about your project, goals, timeline, and any specific requirements..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="file">Attach Files (Optional)</label>
+                            <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png,.pdf,.psd,.ai,.zip">
+                            <small>Max file size: 10MB (JPG, PNG, PDF, PSD, AI, ZIP)</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                                <label for="newsletter">Subscribe to our newsletter for design tips and updates</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary btn-submit">
+                            <span class="submit-text">Send Message</span>
+                            <span class="loading-spinner" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Sending...
+                            </span>
+                        </button>
+                        
+                        <div class="form-success" id="formSuccess" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.</p>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <p>Prefer to reach out directly? Here's how you can contact us.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Email Us</h3>
+                                <p>hello@pixelcraftstudios.com</p>
+                                <p>For general inquiries and project proposals</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Call Us</h3>
+                                <p>+1 (555) 123-4567</p>
+                                <p>Mon-Fri, 9am-6pm EST</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="method-details">
+                                <h3>Visit Our Studio</h3>
+                                <p>123 Design Street</p>
+                                <p>Creative City, CC 10101</p>
+                                <p>By appointment only</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-contact">
+                        <h3>Follow Our Work</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-behance"></i>
+                                <span>Behance</span>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-dribbble"></i>
+                                <span>Dribbble</span>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="working-hours">
+                        <h3>Working Hours</h3>
+                        <ul>
+                            <li><span>Monday - Friday:</span> 9:00 AM - 6:00 PM</li>
+                            <li><span>Saturday:</span> 10:00 AM - 4:00 PM</li>
+                            <li><span>Sunday:</span> Closed</li>
+                        </ul>
+                        <p>Emergency projects? Contact us anyway - we'll do our best to accommodate!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <!-- <section class="map-section">
+        <div class="container">
+            <h2>Find Our Studio</h2>
+            <div class="map-container">
+                For a real website, you would embed a Google Map here -->
+                <!-- <div class="map-placeholder">
+                    <div class="map-marker">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <p>Interactive map would be embedded here</p>
+                    <p>123 Design Street, Creative City, CC 10101</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- FAQ Section -->
+    <section class="contact-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Before You <span class="highlight">Contact</span> Us</h2>
+                <p class="section-subtitle">Quick answers to common questions</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h3><i class="fas fa-clock"></i> How soon can you start?</h3>
+                    <p>We typically have capacity to start new projects within 1-2 weeks of contract signing. Rush projects may be accommodated based on current workload.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3><i class="fas fa-dollar-sign"></i> What are your payment terms?</h3>
+                    <p>We require a 50% deposit to begin work, with the balance due upon project completion. For larger projects, we can arrange milestone-based payments.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3><i class="fas fa-file-contract"></i> Do you provide contracts?</h3>
+                    <p>Yes, we provide a detailed contract outlining project scope, timeline, deliverables, payment terms, and ownership rights before starting any work.</p>
+                </div>
+                
+                <div class="faq-card">
+                    <h3><i class="fas fa-users"></i> Who will work on my project?</h3>
+                    <p>You'll work directly with our Creative Director and a dedicated design team. We maintain consistent team members throughout your project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Not Sure Where to Start?</h2>
+                <p>Schedule a free 30-minute consultation to discuss your project needs.</p>
+                <a href="#" class="btn-primary btn-large" id="scheduleBtn">
+                    <i class="fas fa-calendar-alt"></i> Schedule a Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <span class="logo-icon">🎨</span>
+                        <span class="logo-text">PixelCraft<span class="logo-highlight">Studios</span></span>
+                    </a>
+                    <p>Crafting visual experiences that tell your brand's story and drive results.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html#branding">Brand Identity</a></li>
+                        <li><a href="services.html#web">Web Design</a></li>
+                        <li><a href="services.html#print">Print Design</a></li>
+                        <li><a href="services.html#marketing">Marketing Design</a></li>
+                        <li><a href="services.html#illustration">Illustration</a></li>
+                    </ul>
+                </div>
+                
+                <!-- <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-envelope"></i> hello@pixelcraftstudios.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Design Street, Creative City</li>
+                    </ul>
+                </div> -->
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 PixelCraft Studios. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart"></i> by PixelCraft Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Schedule Modal -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Schedule a Consultation</h2>
+            <p>Select a date and time for your free 30-minute consultation.</p>
+            <div class="calendar-placeholder">
+                <p>Calendar integration would be implemented here</p>
+                <p>For now, please use the contact form above</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>
