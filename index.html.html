@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelCraft Studios · playable 8-bit arcade</title>
+  <!-- Inter & monospace fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'deep': '#0B0F19',
+            'cyan-accent': '#00E5FF',
+            'purple-accent': '#B026FF',
+            'neon-green': '#39FF14',
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+            'mono': ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #0B0F19; font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #00E5FF 0%, #B026FF 60%, #39FF14 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .card-hover:hover {
+      border-color: #B026FF;
+      box-shadow: 0 10px 30px -10px rgba(176, 38, 255, 0.3);
+      transform: translateY(-6px);
+    }
+    .portfolio-overlay {
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+    #mobile-menu { transition: all 0.3s ease; }
+    .pixel-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 2px solid #00E5FF;
+      border-radius: 8px;
+      background: rgba(0, 229, 255, 0.05);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #00E5FF;
+      text-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+    }
+    .game-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      transition: all 0.2s;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+    }
+    .game-card:hover {
+      border-color: #39FF14;
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.15);
+    }
+    .game-badge {
+      background: #0B0F19;
+      border: 1px solid #B026FF;
+      color: #B026FF;
+    }
+    .contact-input {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: border 0.2s;
+    }
+    .contact-input:focus {
+      border-color: #00E5FF;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+    }
+    .game-canvas-wrapper {
+      background: #0a0e17;
+      border: 2px solid rgba(0, 229, 255, 0.25);
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.05);
+    }
+    .game-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.15s;
+    }
+    .game-btn:hover {
+      background: rgba(0, 229, 255, 0.1);
+      border-color: #00E5FF;
+    }
+    .game-btn.active {
+      background: rgba(0, 229, 255, 0.15);
+      border-color: #00E5FF;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+    }
+    /* Tetris sidebar */
+    .tetris-sidebar {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 120px;
+    }
+    .tetris-sidebar .preview-cell {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin: 1px;
+    }
+    .distraction-ball {
+      opacity: 0.6;
+      filter: blur(1px);
+    }
+  </style>
+</head>
+<body class="text-white antialiased">
+
+  <!-- ===== STICKY NAVBAR ===== -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-deep/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <div class="flex items-center gap-3">
+        <div class="pixel-icon">P</div>
+        <span class="text-xl font-bold tracking-tight">
+          <span class="gradient-text">PixelCraft</span>
+          <span class="text-white/70 font-mono text-sm ml-1">//</span>
+        </span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <a href="#home" class="hover:text-cyan-accent transition">Home</a>
+        <a href="#services" class="hover:text-cyan-accent transition">Services</a>
+        <a href="#portfolio" class="hover:text-cyan-accent transition">Portfolio</a>
+        <a href="#games" class="hover:text-neon-green transition">8-bit</a>
+        <a href="#contact" class="hover:text-cyan-accent transition">Contact</a>
+      </nav>
+      <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white focus:outline-none" aria-label="toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden bg-deep/95 backdrop-blur-sm border-b border-white/5 hidden">
+      <div class="flex flex-col space-y-3 px-6 py-5 text-sm font-medium text-gray-300">
+        <a href="#home" class="hover:text-cyan-accent transition">Home</a>
+        <a href="#services" class="hover:text-cyan-accent transition">Services</a>
+        <a href="#portfolio" class="hover:text-cyan-accent transition">Portfolio</a>
+        <a href="#games" class="hover:text-neon-green transition">8-bit Games</a>
+        <a href="#contact" class="hover:text-cyan-accent transition">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-16">
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="min-h-screen flex items-center relative overflow-hidden px-4 sm:px-6 lg:px-8 py-20">
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-purple-accent/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-cyan-accent/5 rounded-full blur-2xl"></div>
+      <div class="max-w-4xl mx-auto relative z-10 text-center md:text-left">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+          <span class="gradient-text">Pixel Perfect.</span><br />
+          <span class="text-white">Powered by </span>
+          <span class="font-mono text-cyan-accent">Code.</span>
+        </h1>
+        <p class="mt-6 text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto md:mx-0">
+          High‑performance websites &amp; beautiful graphic design — 
+          <span class="text-purple-accent font-mono">Figma → code</span> in perfect sync.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-4 justify-center md:justify-start">
+          <a href="#portfolio" class="px-8 py-3 bg-cyan-accent/20 border border-cyan-accent text-cyan-accent font-medium rounded-full hover:bg-cyan-accent/30 transition">View Our Work</a>
+          <a href="#contact" class="px-8 py-3 bg-purple-accent/20 border border-purple-accent text-purple-accent font-medium rounded-full hover:bg-purple-accent/30 transition">Get a Quote</a>
+        </div>
+        <div class="mt-8 flex gap-6 text-sm text-gray-400 font-mono justify-center md:justify-start">
+          <span>✦ UI/UX</span>
+          <span>✦ React / Next</span>
+          <span>✦ Tailwind</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services" class="py-24 px-4 sm:px-6 lg:px-8 bg-deep/60 border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="text-cyan-accent font-mono text-sm tracking-widest">// SERVICES</span>
+          <h2 class="text-4xl font-bold mt-2">What we craft</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="card-hover rounded-2xl p-8 bg-white/5 backdrop-blur-sm">
+            <div class="w-12 h-12 rounded-xl bg-cyan-accent/10 flex items-center justify-center text-2xl">⚡</div>
+            <h3 class="text-xl font-bold mt-5 font-mono text-cyan-accent">Web Dev</h3>
+            <p class="text-gray-300 mt-3 text-sm leading-relaxed">Modern stacks (React, Next, Node) with pixel‑perfect performance and clean architecture.</p>
+          </div>
+          <div class="card-hover rounded-2xl p-8 bg-white/5 backdrop-blur-sm">
+            <div class="w-12 h-12 rounded-xl bg-purple-accent/10 flex items-center justify-center text-2xl">🎨</div>
+            <h3 class="text-xl font-bold mt-5 font-mono text-purple-accent">UI/UX Design</h3>
+            <p class="text-gray-300 mt-3 text-sm leading-relaxed">Figma‑to‑code, design systems, and immersive interfaces that convert.</p>
+          </div>
+          <div class="card-hover rounded-2xl p-8 bg-white/5 backdrop-blur-sm">
+            <div class="w-12 h-12 rounded-xl bg-neon-green/10 flex items-center justify-center text-2xl">🚀</div>
+            <h3 class="text-xl font-bold mt-5 font-mono text-neon-green">Digital Solutions</h3>
+            <p class="text-gray-300 mt-3 text-sm leading-relaxed">Brand identity, motion, and full‑cycle digital products for startups &amp; enterprises.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="text-purple-accent font-mono text-sm tracking-widest">// PORTFOLIO</span>
+          <h2 class="text-4xl font-bold mt-2">Recent projects</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="portfolio-item relative rounded-xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-cyan-900/30 to-deep border border-white/10">
+            <div class="w-full h-full bg-[url('https://placehold.co/600x400/0B0F19/00E5FF?text=Web+App')] bg-cover bg-center"></div>
+            <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-5">
+              <span class="text-xs font-mono text-cyan-accent">React / Tailwind</span>
+              <h4 class="text-lg font-bold">FinTech Dashboard</h4>
+              <p class="text-sm text-gray-300">Real‑time analytics</p>
+            </div>
+          </div>
+          <div class="portfolio-item relative rounded-xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-purple-900/30 to-deep border border-white/10">
+            <div class="w-full h-full bg-[url('https://placehold.co/600x400/0B0F19/B026FF?text=UI+Kit')] bg-cover bg-center"></div>
+            <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-5">
+              <span class="text-xs font-mono text-purple-accent">Figma → Code</span>
+              <h4 class="text-lg font-bold">Design System</h4>
+              <p class="text-sm text-gray-300">200+ components</p>
+            </div>
+          </div>
+          <div class="portfolio-item relative rounded-xl overflow-hidden aspect-[4/3] bg-gradient-to-br from-neon-green/20 to-deep border border-white/10">
+            <div class="w-full h-full bg-[url('https://placehold.co/600x400/0B0F19/39FF14?text=Brand+Identity')] bg-cover bg-center"></div>
+            <div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-5">
+              <span class="text-xs font-mono text-neon-green">Graphic</span>
+              <h4 class="text-lg font-bold">Startup Brand</h4>
+              <p class="text-sm text-gray-300">Logo &amp; collateral</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8-BIT PLAYABLE GAMES ===== -->
+    <section id="games" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 bg-deep/40">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="text-neon-green font-mono text-sm tracking-widest">// 8‑BIT ARCADE</span>
+          <h2 class="text-4xl font-bold mt-2">playable retro</h2>
+          <p class="text-gray-400 mt-2 font-mono text-sm">click a game · use keyboard or touch</p>
+        </div>
+
+        <!-- game selector + controls -->
+        <div class="flex flex-wrap justify-center gap-3 mb-6">
+          <button data-game="snake" class="game-btn px-5 py-2 rounded-full text-sm font-mono text-cyan-accent border-cyan-accent/30 border">🐍 Snake</button>
+          <button data-game="tetris" class="game-btn px-5 py-2 rounded-full text-sm font-mono text-purple-accent border-purple-accent/30 border">🧱 Tetris</button>
+          <button data-game="pong" class="game-btn px-5 py-2 rounded-full text-sm font-mono text-neon-green border-neon-green/30 border">🏓 Pong</button>
+          <button id="reset-game" class="game-btn px-5 py-2 rounded-full text-sm font-mono text-white/60 border-white/10 border">⟳ reset</button>
+        </div>
+
+        <!-- Pong mode toggle -->
+        <div id="pong-mode-toggle" class="flex justify-center gap-3 mb-4 hidden">
+          <button data-pong-mode="ai" class="game-btn px-4 py-1.5 rounded-full text-xs font-mono text-neon-green border-neon-green/30 border active">vs AI</button>
+          <button data-pong-mode="pvp" class="game-btn px-4 py-1.5 rounded-full text-xs font-mono text-white/60 border-white/10 border">vs Player</button>
+        </div>
+
+        <!-- Game canvas with Tetris sidebar -->
+        <div class="flex flex-col items-center">
+          <div class="game-canvas-wrapper rounded-2xl p-2 bg-deep/80 inline-block">
+            <div class="flex gap-4 items-start">
+              <canvas id="gameCanvas" width="400" height="400" class="w-[400px] max-w-[400px] aspect-square rounded-xl block"></canvas>
+              <!-- Tetris Sidebar (hidden by default, shown via JS) -->
+              <div id="tetris-sidebar" class="tetris-sidebar hidden flex-col gap-3 min-w-[120px]">
+                <div class="text-center">
+                  <div class="text-xs font-mono text-gray-400 mb-1">SCORE</div>
+                  <div id="tetris-score-display" class="text-2xl font-mono text-cyan-accent">0</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs font-mono text-gray-400 mb-1">NEXT</div>
+                  <div id="tetris-preview" class="flex flex-col items-center" style="min-height: 80px;"></div>
+                </div>
+                <div class="text-center text-[10px] font-mono text-gray-500 mt-2">
+                  ← → rotate<br>↓ drop
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-6 text-xs font-mono text-gray-400">
+            <span id="game-score" class="text-cyan-accent">score: 0</span>
+            <span id="game-status" class="text-white/50">▶ press a game</span>
+          </div>
+        </div>
+
+        <!-- quick game grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12">
+          <div class="game-card rounded-xl p-3 text-center" data-game="snake">
+            <div class="text-3xl">🐍</div>
+            <h4 class="font-mono text-xs text-cyan-accent">Snake</h4>
+          </div>
+          <div class="game-card rounded-xl p-3 text-center" data-game="tetris">
+            <div class="text-3xl">🧱</div>
+            <h4 class="font-mono text-xs text-purple-accent">Tetris</h4>
+          </div>
+          <div class="game-card rounded-xl p-3 text-center" data-game="pong">
+            <div class="text-3xl">🏓</div>
+            <h4 class="font-mono text-xs text-neon-green">Pong</h4>
+          </div>
+          <div class="game-card rounded-xl p-3 text-center opacity-60">
+            <div class="text-3xl">🕹️</div>
+            <h4 class="font-mono text-xs text-white/40">more soon</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 bg-deep/50">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div class="lg:col-span-2">
+          <span class="text-cyan-accent font-mono text-sm tracking-widest">// CONTACT</span>
+          <h2 class="text-4xl font-bold mt-2">Let's build</h2>
+          <p class="text-gray-300 mt-4 text-sm leading-relaxed">Ready to turn your ideas into pixel‑perfect reality? Reach out.</p>
+          <div class="mt-8 space-y-4 text-sm">
+            <div class="flex items-center gap-3"><span class="text-cyan-accent">📧</span> hello@pixelcraft.studio</div>
+            <div class="flex items-center gap-3"><span class="text-purple-accent">📱</span> +1 (555) 000-9999</div>
+            <div class="flex items-center gap-3"><span class="text-neon-green">🌐</span> @pixelcraft on IG</div>
+          </div>
+        </div>
+        <form class="lg:col-span-3 space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input type="text" placeholder="Name" class="contact-input rounded-xl px-5 py-3 w-full" />
+            <input type="email" placeholder="Email" class="contact-input rounded-xl px-5 py-3 w-full" />
+          </div>
+          <input type="text" placeholder="Project Type (e.g. Web, Brand)" class="contact-input rounded-xl px-5 py-3 w-full" />
+          <textarea rows="4" placeholder="Tell us about your vision..." class="contact-input rounded-xl px-5 py-3 w-full resize-none"></textarea>
+          <button type="submit" class="w-full sm:w-auto px-10 py-3 bg-gradient-to-r from-cyan-accent to-purple-accent text-deep font-bold rounded-xl hover:opacity-90 transition">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-white/5 py-10 px-4 text-center text-sm text-gray-400">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <span class="font-mono text-xs">© 2026 PixelCraft Studios · crafted with <span class="text-neon-green">♥</span> + code</span>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-cyan-accent transition">Instagram</a>
+        <a href="#" class="hover:text-cyan-accent transition">Twitter</a>
+        <a href="#" class="hover:text-cyan-accent transition">GitHub</a>
+      </div>
+      <span class="font-mono text-[10px] text-white/20">// pixel perfect since 2026</span>
+    </div>
+  </footer>
+
+  <!-- ===== GAME ENGINE ===== -->
+  <script>
+    (function() {
+      // ---- DOM refs ----
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      const scoreSpan = document.getElementById('game-score');
+      const statusSpan = document.getElementById('game-status');
+      const pongModeToggle = document.getElementById('pong-mode-toggle');
+      const tetrisSidebar = document.getElementById('tetris-sidebar');
+      const tetrisScoreDisplay = document.getElementById('tetris-score-display');
+      const tetrisPreview = document.getElementById('tetris-preview');
+
+      // ---- game state ----
+      let currentGame = 'snake';
+      let gameOver = false;
+      let score = 0;
+      let pongMode = 'ai';
+
+      // ---- SNAKE ----
+      let snake = [];
+      let food = { x: 6, y: 6 };
+      let direction = 'right';
+      let nextDirection = 'right';
+      const GRID_SIZE = 20;
+      let snakeInterval = null;
+
+      // ---- TETRIS ----
+      let tetrisBoard = Array(20).fill().map(() => Array(10).fill(0));
+      let tetrisPiece = null;
+      let tetrisNextPiece = null;
+      let tetrisInterval = null;
+      const TETRIS_COLORS = ['#00E5FF', '#B026FF', '#39FF14', '#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF'];
+
+      // ---- PONG ----
+      let pongState = {
+        ball: { x: 200, y: 200, dx: 2.5, dy: 2.2, radius: 6 },
+        leftPaddle: { y: 160, height: 60, width: 8, x: 10 },
+        rightPaddle: { y: 160, height: 60, width: 8, x: 382 },
+        scoreLeft: 0,
+        scoreRight: 0,
+        volleyCount: 0,
+        speedMultiplier: 1,
+        distractionBalls: [],
+        distractionTimer: 0,
+      };
+      let pongKeys = { w: false, s: false, ArrowUp: false, ArrowDown: false };
+      let pongInterval = null;
+
+      // ---- helpers ----
+      function stopAllGames() {
+        if (snakeInterval) { clearInterval(snakeInterval); snakeInterval = null; }
+        if (tetrisInterval) { clearInterval(tetrisInterval); tetrisInterval = null; }
+        if (pongInterval) { clearInterval(pongInterval); pongInterval = null; }
+        gameOver = false;
+        pongModeToggle.classList.add('hidden');
+        tetrisSidebar.classList.add('hidden');
+      }
+
+      function setStatus(msg, color = 'text-white/50') {
+        statusSpan.textContent = msg;
+        statusSpan.className = color;
+      }
+
+      function updateScore(val) {
+        score = val;
+        scoreSpan.textContent = `score: ${val}`;
+      }
+
+      // ---- SNAKE ----
+      function initSnake() {
+        snake = [
+          { x: 10, y: 10 },
+          { x: 9, y: 10 },
+          { x: 8, y: 10 }
+        ];
+        direction = 'right';
+        nextDirection = 'right';
+        gameOver = false;
+        score = 0;
+        updateScore(0);
+        placeFood();
+        setStatus('🐍 snake · arrow keys', 'text-cyan-accent');
+        drawSnake();
+      }
+
+      function placeFood() {
+        const free = [];
+        for (let i = 0; i < GRID_SIZE; i++) {
+          for (let j = 0; j < GRID_SIZE; j++) {
+            if (!snake.some(s => s.x === i && s.y === j)) free.push({ x: i, y: j });
+          }
+        }
+        if (free.length === 0) { gameOver = true; setStatus('🎉 you win!', 'text-neon-green'); return; }
+        food = free[Math.floor(Math.random() * free.length)];
+      }
+
+      function snakeMove() {
+        if (gameOver) return;
+        direction = nextDirection;
+        const head = { ...snake[0] };
+        if (direction === 'right') head.x++;
+        if (direction === 'left') head.x--;
+        if (direction === 'up') head.y--;
+        if (direction === 'down') head.y++;
+
+        if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
+          gameOver = true;
+          setStatus('💀 game over', 'text-red-400');
+          drawSnake();
+          return;
+        }
+        if (snake.some(s => s.x === head.x && s.y === head.y)) {
+          gameOver = true;
+          setStatus('💀 game over', 'text-red-400');
+          drawSnake();
+          return;
+        }
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+          score++;
+          updateScore(score);
+          placeFood();
+        } else {
+          snake.pop();
+        }
+        drawSnake();
+      }
+
+      function drawSnake() {
+        ctx.clearRect(0, 0, 400, 400);
+        ctx.fillStyle = '#0B0F19';
+        ctx.fillRect(0, 0, 400, 400);
+        ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i <= GRID_SIZE; i++) {
+          ctx.beginPath();
+          ctx.moveTo(i * 20, 0);
+          ctx.lineTo(i * 20, 400);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, i * 20);
+          ctx.lineTo(400, i * 20);
+          ctx.stroke();
+        }
+        snake.forEach((seg, idx) => {
+          const color = idx === 0 ? '#00E5FF' : '#B026FF';
+          ctx.fillStyle = color;
+          ctx.shadowColor = color;
+          ctx.shadowBlur = idx === 0 ? 15 : 5;
+          ctx.fillRect(seg.x * 20 + 1, seg.y * 20 + 1, 18, 18);
+          ctx.shadowBlur = 0;
+        });
+        ctx.fillStyle = '#39FF14';
+        ctx.shadowColor = '#39FF14';
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.arc(food.x * 20 + 10, food.y * 20 + 10, 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      // ---- TETRIS ----
+      function getRandomPiece() {
+        const pieces = [
+          { shape: [[1,1,1,1]], color: 0 },
+          { shape: [[1,1],[1,1]], color: 1 },
+          { shape: [[0,1,0],[1,1,1]], color: 2 },
+          { shape: [[1,0,0],[1,1,1]], color: 3 },
+          { shape: [[0,0,1],[1,1,1]], color: 4 },
+          { shape: [[0,1,1],[1,1,0]], color: 5 },
+          { shape: [[1,1,0],[0,1,1]], color: 6 },
+        ];
+        return pieces[Math.floor(Math.random() * pieces.length)];
+      }
+
+      function initTetris() {
+        tetrisBoard = Array(20).fill().map(() => Array(10).fill(0));
+        gameOver = false;
+        score = 0;
+        updateScore(0);
+        tetrisSidebar.classList.remove('hidden');
+        tetrisNextPiece = getRandomPiece();
+        spawnTetrisPiece();
+        setStatus('🧱 tetris · ← → rotate, ↓ drop', 'text-purple-accent');
+        drawTetris();
+        updateTetrisSidebar();
+      }
+
+      function spawnTetrisPiece() {
+        if (tetrisNextPiece) {
+          tetrisPiece = {
+            shape: tetrisNextPiece.shape,
+            color: tetrisNextPiece.color,
+            x: Math.floor((10 - tetrisNextPiece.shape[0].length) / 2),
+            y: 0,
+          };
+          tetrisNextPiece = getRandomPiece();
+          if (!tetrisValid(tetrisPiece.shape, tetrisPiece.x, tetrisPiece.y)) {
+            gameOver = true;
+            setStatus('💀 game over', 'text-red-400');
+            tetrisPiece = null;
+          }
+        }
+        updateTetrisSidebar();
+      }
+
+      function tetrisValid(shape, offX, offY) {
+        for (let r = 0; r < shape.length; r++) {
+          for (let c = 0; c < shape[0].length; c++) {
+            if (shape[r][c]) {
+              const x = offX + c;
+              const y = offY + r;
+              if (x < 0 || x >= 10 || y >= 20 || y < 0) return false;
+              if (y >= 0 && tetrisBoard[y][x]) return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      function lockTetrisPiece() {
+        if (!tetrisPiece) return;
+        const { shape, x, y, color } = tetrisPiece;
+        for (let r = 0; r < shape.length; r++) {
+          for (let c = 0; c < shape[0].length; c++) {
+            if (shape[r][c]) {
+              const boardY = y + r;
+              const boardX = x + c;
+              if (boardY >= 0) tetrisBoard[boardY][boardX] = color + 1;
+            }
+          }
+        }
+        let cleared = 0;
+        for (let row = tetrisBoard.length - 1; row >= 0; ) {
+          if (tetrisBoard[row].every(cell => cell !== 0)) {
+            tetrisBoard.splice(row, 1);
+            tetrisBoard.unshift(Array(10).fill(0));
+            cleared++;
+          } else {
+            row--;
+          }
+        }
+        if (cleared > 0) {
+          score += cleared * 10;
+          updateScore(score);
+          tetrisScoreDisplay.textContent = score;
+        }
+        spawnTetrisPiece();
+        drawTetris();
+      }
+
+      function moveTetris(dx, dy) {
+        if (!tetrisPiece || gameOver) return;
+        const { shape, x, y } = tetrisPiece;
+        if (tetrisValid(shape, x + dx, y + dy)) {
+          tetrisPiece.x += dx;
+          tetrisPiece.y += dy;
+          drawTetris();
+        } else if (dy === 1) {
+          lockTetrisPiece();
+          drawTetris();
+        }
+      }
+
+      function rotateTetris() {
+        if (!tetrisPiece || gameOver) return;
+        const oldShape = tetrisPiece.shape;
+        const rotated = oldShape[0].map((_, i) => oldShape.map(row => row[i]).reverse());
+        if (tetrisValid(rotated, tetrisPiece.x, tetrisPiece.y)) {
+          tetrisPiece.shape = rotated;
+          drawTetris();
+        }
+      }
+
+      function drawTetris() {
+        ctx.clearRect(0, 0, 400, 400);
+        ctx.fillStyle = '#0B0F19';
+        ctx.fillRect(0, 0, 400, 400);
+        for (let row = 0; row < 20; row++) {
+          for (let col = 0; col < 10; col++) {
+            const val = tetrisBoard[row][col];
+            if (val) {
+              ctx.fillStyle = TETRIS_COLORS[val - 1] || '#ffffff';
+              ctx.shadowColor = TETRIS_COLORS[val - 1] || '#ffffff';
+              ctx.shadowBlur = 5;
+              ctx.fillRect(col * 20 + 1, row * 20 + 1, 18, 18);
+              ctx.shadowBlur = 0;
+            }
+          }
+        }
+        if (tetrisPiece) {
+          const { shape, x, y, color } = tetrisPiece;
+          for (let r = 0; r < shape.length; r++) {
+            for (let c = 0; c < shape[0].length; c++) {
+              if (shape[r][c]) {
+                ctx.fillStyle = TETRIS_COLORS[color] || '#ffffff';
+                ctx.shadowColor = TETRIS_COLORS[color] || '#ffffff';
+                ctx.shadowBlur = 8;
+                ctx.fillRect((x + c) * 20 + 1, (y + r) * 20 + 1, 18, 18);
+                ctx.shadowBlur = 0;
+              }
+            }
+          }
+        }
+        ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i <= 10; i++) {
+          ctx.beginPath();
+          ctx.moveTo(i * 20, 0);
+          ctx.lineTo(i * 20, 400);
+          ctx.stroke();
+        }
+        for (let i = 0; i <= 20; i++) {
+          ctx.beginPath();
+          ctx.moveTo(0, i * 20);
+          ctx.lineTo(400, i * 20);
+          ctx.stroke();
+        }
+        tetrisScoreDisplay.textContent = score;
+      }
+
+      function updateTetrisSidebar() {
+        if (!tetrisNextPiece) return;
+        tetrisPreview.innerHTML = '';
+        const shape = tetrisNextPiece.shape;
+        const color = TETRIS_COLORS[tetrisNextPiece.color];
+        for (let r = 0; r < shape.length; r++) {
+          const row = document.createElement('div');
+          row.style.display = 'flex';
+          row.style.justifyContent = 'center';
+          for (let c = 0; c < shape[0].length; c++) {
+            const cell = document.createElement('span');
+            cell.className = 'preview-cell';
+            if (shape[r][c]) {
+              cell.style.backgroundColor = color;
+              cell.style.boxShadow = `0 0 8px ${color}`;
+            }
+            row.appendChild(cell);
+          }
+          tetrisPreview.appendChild(row);
+        }
+      }
+
+      // ---- PONG ----
+      function initPong() {
+        pongState = {
+          ball: { x: 200, y: 200, dx: 2.5, dy: 2.2, radius: 6 },
+          leftPaddle: { y: 160, height: 60, width: 8, x: 10 },
+          rightPaddle: { y: 160, height: 60, width: 8, x: 382 },
+          scoreLeft: 0,
+          scoreRight: 0,
+          volleyCount: 0,
+          speedMultiplier: 1,
+          distractionBalls: [],
+          distractionTimer: 0,
+        };
+        gameOver = false;
+        score = 0;
+        updateScore(0);
+        pongModeToggle.classList.remove('hidden');
+        setStatus(`🏓 pong · ${pongMode === 'ai' ? 'vs AI' : 'vs Player'}`, 'text-neon-green');
+        drawPong();
+      }
+
+      function pongMove() {
+        if (gameOver) return;
+        const { ball, leftPaddle, rightPaddle } = pongState;
+        
+        // Right paddle movement
+        if (pongMode === 'ai') {
+          const aiSpeed = 2.2 * pongState.speedMultiplier;
+          if (ball.y < rightPaddle.y + rightPaddle.height/2 - 10) rightPaddle.y -= aiSpeed;
+          else if (ball.y > rightPaddle.y + rightPaddle.height/2 + 10) rightPaddle.y += aiSpeed;
+          rightPaddle.y = Math.max(0, Math.min(400 - rightPaddle.height, rightPaddle.y));
+        } else {
+          if (pongKeys.ArrowUp) rightPaddle.y = Math.max(0, rightPaddle.y - 5);
+          if (pongKeys.ArrowDown) rightPaddle.y = Math.min(400 - rightPaddle.height, rightPaddle.y + 5);
+        }
+
+        // Player 1
+        if (pongKeys.w) leftPaddle.y = Math.max(0, leftPaddle.y - 5);
+        if (pongKeys.s) leftPaddle.y = Math.min(400 - leftPaddle.height, leftPaddle.y + 5);
+
+        // Ball movement
+        const speed = pongState.speedMultiplier;
+        ball.x += ball.dx * speed;
+        ball.y += ball.dy * speed;
+        if (ball.y - ball.radius < 0 || ball.y + ball.radius > 400) ball.dy *= -1;
+
+        // Paddle collisions
+        let hit = false;
+        if (ball.dx < 0 &&
+            ball.x - ball.radius < leftPaddle.x + leftPaddle.width &&
+            ball.x + ball.radius > leftPaddle.x &&
+            ball.y > leftPaddle.y && ball.y < leftPaddle.y + leftPaddle.height) {
+          ball.dx *= -1.05;
+          ball.x = leftPaddle.x + leftPaddle.width + ball.radius;
+          hit = true;
+        }
+        if (ball.dx > 0 &&
+            ball.x + ball.radius > rightPaddle.x &&
+            ball.x - ball.radius < rightPaddle.x + rightPaddle.width &&
+            ball.y > rightPaddle.y && ball.y < rightPaddle.y + rightPaddle.height) {
+          ball.dx *= -1.05;
+          ball.x = rightPaddle.x - ball.radius;
+          hit = true;
+        }
+
+        // Volley counting for speed increase
+        if (hit) {
+          pongState.volleyCount++;
+          if (pongState.volleyCount >= 4) {
+            pongState.speedMultiplier = Math.min(1.8, pongState.speedMultiplier + 0.1);
+            pongState.volleyCount = 0;
+          }
+        }
+
+        // Distraction balls
+        pongState.distractionTimer++;
+        if (pongState.distractionTimer > 300 && pongState.distractionBalls.length < 3) {
+          pongState.distractionBalls.push({
+            x: Math.random() * 380 + 10,
+            y: Math.random() * 380 + 10,
+            dx: (Math.random() - 0.5) * 3,
+            dy: (Math.random() - 0.5) * 3,
+            radius: 4,
+            life: 600, // frames
+          });
+          pongState.distractionTimer = 0;
+        }
+
+        // Update distraction balls
+        pongState.distractionBalls = pongState.distractionBalls.filter(b => {
+          b.x += b.dx;
+          b.y += b.dy;
+          b.life--;
+          if (b.x - b.radius < 0 || b.x + b.radius > 400) b.dx *= -1;
+          if (b.y - b.radius < 0 || b.y + b.radius > 400) b.dy *= -1;
+          return b.life > 0;
+        });
+
+        // Scoring
+        if (ball.x < -10) {
+          pongState.scoreRight++;
+          if (pongState.scoreRight >= 5) { 
+            gameOver = true; 
+            setStatus('🏆 ' + (pongMode === 'ai' ? 'AI wins!' : 'Player 2 wins!'), 'text-red-400');
+          }
+          resetPongBall();
+        } else if (ball.x > 410) {
+          pongState.scoreLeft++;
+          updateScore(pongState.scoreLeft);
+          if (pongState.scoreLeft >= 5) { 
+            gameOver = true; 
+            setStatus('🏆 ' + (pongMode === 'ai' ? 'You win!' : 'Player 1 wins!'), 'text-neon-green');
+          }
+          resetPongBall();
+        }
+        drawPong();
+      }
+
+      function resetPongBall() {
+        pongState.ball.x = 200;
+        pongState.ball.y = 200;
+        pongState.ball.dx = (Math.random() > 0.5 ? 2.5 : -2.5);
+        pongState.ball.dy = (Math.random() * 4 - 2);
+        pongState.volleyCount = 0;
+        pongState.speedMultiplier = 1;
+      }
+
+      function drawPong() {
+        ctx.clearRect(0, 0, 400, 400);
+        ctx.fillStyle = '#0B0F19';
+        ctx.fillRect(0, 0, 400, 400);
+        
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+        ctx.setLineDash([8, 12]);
+        ctx.beginPath();
+        ctx.moveTo(200, 0);
+        ctx.lineTo(200, 400);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const { leftPaddle, rightPaddle, ball, distractionBalls } = pongState;
+        
+        // Distraction balls (ghostly)
+        distractionBalls.forEach(b => {
+          ctx.fillStyle = 'rgba(255, 100, 100, 0.3)';
+          ctx.shadowColor = 'rgba(255, 100, 100, 0.2)';
+          ctx.shadowBlur = 20;
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        });
+
+        ctx.fillStyle = '#00E5FF';
+        ctx.shadowColor = '#00E5FF';
+        ctx.shadowBlur = 15;
+        ctx.fillRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
+        ctx.fillStyle = '#39FF14';
+        ctx.shadowColor = '#39FF14';
+        ctx.fillRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height);
+        
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowColor = '#FFFFFF';
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.font = '20px monospace';
+        ctx.fillStyle = 'rgba(255,255,255,0.1)';
+        ctx.fillText(pongState.scoreLeft, 70, 50);
+        ctx.fillText(pongState.scoreRight, 310, 50);
+      }
+
+      // ---- GAME SWITCHER ----
+      function switchGame(game) {
+        stopAllGames();
+        currentGame = game;
+        if (game === 'snake') {
+          initSnake();
+          snakeInterval = setInterval(snakeMove, 130);
+        } else if (game === 'tetris') {
+          initTetris();
+          tetrisInterval = setInterval(() => { moveTetris(0, 1); }, 400);
+        } else if (game === 'pong') {
+          initPong();
+          pongInterval = setInterval(pongMove, 18);
+        }
+        document.querySelectorAll('[data-game]').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.game === game);
+        });
+      }
+
+      // ---- keyboard controls ----
+      document.addEventListener('keydown', (e) => {
+        const key = e.key;
+        if (currentGame === 'snake') {
+          if (key === 'ArrowUp' && direction !== 'down') nextDirection = 'up';
+          else if (key === 'ArrowDown' && direction !== 'up') nextDirection = 'down';
+          else if (key === 'ArrowLeft' && direction !== 'right') nextDirection = 'left';
+          else if (key === 'ArrowRight' && direction !== 'left') nextDirection = 'right';
+          e.preventDefault();
+        }
+        if (currentGame === 'tetris') {
+          if (key === 'ArrowLeft') { moveTetris(-1, 0); e.preventDefault(); }
+          else if (key === 'ArrowRight') { moveTetris(1, 0); e.preventDefault(); }
+          else if (key === 'ArrowDown') { moveTetris(0, 1); e.preventDefault(); }
+          else if (key === 'ArrowUp') { rotateTetris(); e.preventDefault(); }
+        }
+        if (currentGame === 'pong') {
+          if (key === 'w' || key === 'W') pongKeys.w = true;
+          if (key === 's' || key === 'S') pongKeys.s = true;
+          if (key === 'ArrowUp') pongKeys.ArrowUp = true;
+          if (key === 'ArrowDown') pongKeys.ArrowDown = true;
+          e.preventDefault();
+        }
+      });
+      document.addEventListener('keyup', (e) => {
+        const key = e.key;
+        if (currentGame === 'pong') {
+          if (key === 'w' || key === 'W') pongKeys.w = false;
+          if (key === 's' || key === 'S') pongKeys.s = false;
+          if (key === 'ArrowUp') pongKeys.ArrowUp = false;
+          if (key === 'ArrowDown') pongKeys.ArrowDown = false;
+        }
+      });
+
+      // ---- UI buttons ----
+      document.querySelectorAll('[data-game]').forEach(el => {
+        el.addEventListener('click', () => {
+          const game = el.dataset.game;
+          if (game) switchGame(game);
+        });
+      });
+
+      document.querySelectorAll('[data-pong-mode]').forEach(el => {
+        el.addEventListener('click', () => {
+          pongMode = el.dataset.pongMode;
+          document.querySelectorAll('[data-pong-mode]').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.pongMode === pongMode);
+          });
+          if (currentGame === 'pong') {
+            stopAllGames();
+            initPong();
+            pongInterval = setInterval(pongMove, 18);
+            setStatus(`🏓 pong · ${pongMode === 'ai' ? 'vs AI' : 'vs Player'}`, 'text-neon-green');
+          }
+        });
+      });
+
+      document.getElementById('reset-game').addEventListener('click', () => {
+        if (currentGame) switchGame(currentGame);
+      });
+
+      // ---- mobile nav ----
+      const toggleBtn = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (toggleBtn && mobileMenu) {
+        toggleBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+          link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+      }
+
+      // ---- init ----
+      switchGame('snake');
+    })();
+  </script>
+</body>
+</html>
