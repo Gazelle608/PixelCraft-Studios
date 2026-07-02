@@ -1,119 +1,61 @@
-# PixelCraft-Studios
+# PixelCraft Studios
 
-A modern, responsive web design studio portfolio website showcasing creative design services and digital projects.
-
-## About
-
-PixelCraft-Studios is a professional web presence for a digital design and creative services agency. The site features a clean, modern design with smooth animations, responsive layouts, and an intuitive user interface.
+A Vite + React site for PixelCraft Studios, with separate React routes for Services, Portfolio, 8-bit Arcade, and Contact.
 
 ## Features
 
-- **Responsive Design** - Fully responsive layout that works seamlessly across all devices
-- **Smooth Animations** - Engaging CSS and JavaScript animations for enhanced user experience
-- **Portfolio Showcase** - Beautiful gallery section displaying creative work
-- **Services Overview** - Detailed information about offered services
-- **Contact Integration** - Easy-to-use contact form for client inquiries
-- **Modern UI/UX** - Clean, professional interface with intuitive navigation
-
-## Project Structure
-
-```
-PixelCraft-Studios/
-├── index.html           # Main landing page
-├── about.html           # About us page
-├── portfolio.html       # Portfolio/gallery showcase
-├── services.html        # Services offered
-├── contact.html         # Contact information and form
-├── README.md            # This file
-├── css/
-│   ├── style.css        # Main stylesheet
-│   ├── animations.css   # Animation styles
-│   └── responsive.css   # Media queries and responsive styles
-└── js/
-    ├── main.js          # Main JavaScript functionality
-    ├── animations.js    # Animation scripts
-    ├── gallery.js       # Gallery/portfolio functionality
-    └── services.js      # Services page interactions
-```
+- React single-page app with route-style navigation
+- Home page keeps the service cards and recent projects
+- Dedicated pages for `/services`, `/portfolio`, `/8-bit`, and `/contact`
+- Playable canvas arcade with Snake, Tetris, and Pong
+- Responsive neon studio UI with shared component data
 
 ## Getting Started
 
-### Installation
+Install dependencies:
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/PixelCraft-Studios.git
-cd PixelCraft-Studios
+npm install
 ```
 
-2. Open the project in your preferred code editor
+Run the local dev server:
 
-3. Launch the website using a local server (recommended for best results):
 ```bash
-# Using Python
-python -m http.server 8000
-
-# Or using Node.js (if installed)
-npx http-server
+npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:8000`
+Build for production:
 
-## Usage
+```bash
+npm run build
+```
 
-- **Home Page** - Navigate to `index.html` to see the landing page
-- **About** - Visit `about.html` to learn about the studio
-- **Portfolio** - Check `portfolio.html` for featured projects and work samples
-- **Services** - Review `services.html` for available services
-- **Contact** - Use `contact.html` to get in touch
+Preview the production build:
 
-## File Descriptions
+```bash
+npm run preview
+```
 
-### HTML Files
-- **index.html** - Main landing page with hero section and key information
-- **about.html** - Company story, team information, and background
-- **portfolio.html** - Showcase of completed projects with gallery view
-- **services.html** - Detailed descriptions of design and development services
-- **contact.html** - Contact form and business information
+## Project Structure
 
-### CSS Files
-- **style.css** - Primary stylesheet with layout and component styles
-- **animations.css** - Keyframe animations and transition effects
-- **responsive.css** - Mobile-first responsive design breakpoints
+```text
+PixelCraft-Studios/
+├── index.html
+├── package.json
+├── src/
+│   ├── App.jsx
+│   ├── data.js
+│   ├── main.jsx
+│   ├── styles.css
+│   └── components/
+│       └── Arcade.jsx
+└── README.md
+```
 
-### JavaScript Files
-- **main.js** - Core functionality and page initialization
-- **animations.js** - JavaScript-based animations and transitions
-- **gallery.js** - Portfolio gallery filtering and interactive features
-- **services.js** - Service section interactions and dynamic content
+## Routes
 
-## Technologies Used
-
-- HTML5
-- CSS3 (with animations and responsive design)
-- JavaScript (ES6+)
-- Responsive Design Principles
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit issues or pull requests to improve the website.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For inquiries about PixelCraft-Studios or services, please visit the contact page or reach out through the website.
-
----
-
-**Last Updated:** May 2026
+- `/` - Home, service cards, and recent projects
+- `/services` - Service details and process
+- `/portfolio` - Filterable project showcase
+- `/8-bit` - Playable arcade page
+- `/contact` - Contact information and form
