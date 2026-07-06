@@ -1,33 +1,39 @@
 export const services = [
   {
-    id: 'web',
+    id: 'one-page',
     icon: '</>',
-    title: 'Web Dev',
+    title: 'One Page Websites',
     accent: 'cyan',
     summary:
-      'Modern React, Next, and Node builds with pixel-perfect performance and clean architecture.',
-    features: ['React builds', 'Responsive UI', 'CMS integration', 'SEO foundations'],
-    price: 'From $4,000'
+      'A sharp single-page site for portfolios, trades, restaurants, events, and small service businesses.',
+    features: ['Responsive landing page', 'Contact form setup', 'Basic SEO setup', 'Google Maps or WhatsApp link'],
+    price: 'From R3,500',
+    hosting: 'Hosting + care from R250/month',
+    turnaround: '5-7 working days'
   },
   {
-    id: 'design',
-    icon: 'UI',
-    title: 'UI/UX Design',
+    id: 'multi-page',
+    icon: 'MP',
+    title: 'Multi Page Websites',
     accent: 'purple',
     summary:
-      'Figma-to-code, design systems, and immersive interfaces that are clear, fast, and conversion-minded.',
-    features: ['Wireframes', 'Design systems', 'Prototypes', 'Usability polish'],
-    price: 'From $2,500'
+      'A fuller business website with clear pages for services, about, gallery, testimonials, and enquiries.',
+    features: ['Up to 5 core pages', 'CMS-ready structure', 'On-page SEO basics', 'Analytics and enquiry tracking'],
+    price: 'From R7,500',
+    hosting: 'Hosting + care from R350/month',
+    turnaround: '10-15 working days'
   },
   {
-    id: 'digital',
-    icon: '++',
-    title: 'Digital Solutions',
+    id: 'ecommerce',
+    icon: 'EC',
+    title: 'E-commerce',
     accent: 'green',
     summary:
-      'Brand identity, motion, and full-cycle digital products for startups and growing teams.',
-    features: ['Brand systems', 'Launch assets', 'Automation', 'Product strategy'],
-    price: 'Custom quote'
+      'Online stores for South African businesses that need products, payments, shipping, and sales-ready pages.',
+    features: ['Up to 20 products loaded', 'PayFast or Yoco guidance', 'Shipping setup support', 'Store training handover'],
+    price: 'From R14,500',
+    hosting: 'Store hosting + care from R650/month',
+    turnaround: '15-25 working days'
   }
 ];
 

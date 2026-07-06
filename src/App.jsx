@@ -221,13 +221,14 @@ function ServicesPreview({ navigate }) {
   return (
     <section className="section band">
       <div className="container">
-        <SectionHeader eyebrow="// SERVICES" title="What we craft" />
+        <SectionHeader eyebrow="// SERVICES" title="Services we offer" />
         <div className="card-grid three">
           {services.map((service) => (
             <article className={`service-card accent-${service.accent}`} key={service.id}>
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
               <p>{service.summary}</p>
+              <p className="service-price">{service.price}</p>
             </article>
           ))}
         </div>
@@ -258,47 +259,39 @@ function RecentProjects({ navigate }) {
 }
 
 function ServicesPage({ navigate }) {
-  const [active, setActive] = useState(services[0].id);
-  const activeService = services.find((service) => service.id === active);
-
   return (
     <>
-      <PageHero eyebrow="// SERVICES" title="Services" copy="Focused digital work for brands that need polish, speed, and clarity." />
+      <PageHero eyebrow="// SERVICES" title="Services we offer" copy="Practical website packages priced for South African small businesses, with hosting and monthly care available." />
       <section className="section">
         <div className="container">
-          <div className="tabs" role="tablist" aria-label="Services">
+          <div className="pricing-grid" aria-label="Website pricing packages">
             {services.map((service) => (
-              <button
+              <article
                 key={service.id}
-                className={active === service.id ? 'active' : ''}
-                type="button"
-                onClick={() => setActive(service.id)}
+                className={`price-card accent-${service.accent}`}
               >
-                {service.title}
-              </button>
+                <div className="service-icon">{service.icon}</div>
+                <h2>{service.title}</h2>
+                <p className="package-price">{service.price}</p>
+                <p>{service.summary}</p>
+                <p className="hosting-line">{service.hosting}</p>
+                <p className="turnaround-line">{service.turnaround}</p>
+                <ul className="check-list">
+                  {service.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <LinkButton href="/contact" navigate={navigate} className="btn primary">
+                  Get a Quote
+                </LinkButton>
+              </article>
             ))}
           </div>
-          <div className={`feature-panel accent-${activeService.accent}`}>
-            <div>
-              <p className="eyebrow">{activeService.price}</p>
-              <h2>{activeService.title}</h2>
-              <p>{activeService.summary}</p>
-              <ul className="check-list">
-                {activeService.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <LinkButton href="/contact" navigate={navigate} className="btn primary">
-                Get a Custom Quote
-              </LinkButton>
-            </div>
-            <div className="code-window" aria-hidden="true">
-              <span>const craft = &#123;</span>
-              <span> strategy: true,</span>
-              <span> design: "sharp",</span>
-              <span> launch: "ready"</span>
-              <span>&#125;;</span>
-            </div>
+          <div className="hosting-note">
+            <p>
+              Hosting is billed monthly and can include domain assistance, SSL, backups, updates, uptime checks,
+              and small content changes. Domain registration and paid plugins are quoted separately when needed.
+            </p>
           </div>
         </div>
       </section>
@@ -381,8 +374,8 @@ function ContactPage() {
               <dd>hello@pixelcraft.studio</dd>
               <dt>Phone</dt>
               <dd>+1 (555) 000-9999</dd>
-              <dt>Social</dt>
-              <dd>@pixelcraft</dd>
+              <dt>Instagram</dt>
+              <dd>@pixelcraft_studio5</dd>
             </dl>
           </aside>
           <form className="contact-form" onSubmit={submit}>

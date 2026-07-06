@@ -223,7 +223,7 @@ img {
 
 .hero {
   position: relative;
-  min-height: calc(100vh - 68px);
+  min-height: clamp(520px, 72vh, 680px);
   display: grid;
   align-items: center;
   overflow: hidden;
@@ -331,6 +331,7 @@ img {
 
 .section-header h2,
 .feature-panel h2,
+.price-card h2,
 .cta h2,
 .contact-panel h2 {
   margin: 0;
@@ -341,7 +342,8 @@ img {
 
 .card-grid,
 .project-grid,
-.process-grid {
+.process-grid,
+.pricing-grid {
   display: grid;
   gap: 24px;
 }
@@ -351,6 +353,7 @@ img {
 }
 
 .service-card,
+.price-card,
 .process-step,
 .contact-panel,
 .contact-form,
@@ -407,7 +410,15 @@ img {
   font-size: 0.72rem;
 }
 
+.service-price {
+  margin-top: 18px;
+  color: var(--accent);
+  font-family: 'Press Start 2P', 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+}
+
 .service-card p,
+.price-card p,
 .process-step p,
 .contact-panel p,
 .contact-form,
@@ -415,6 +426,10 @@ img {
 .project-overlay p {
   color: var(--muted);
   line-height: 1.42;
+}
+
+.service-card .service-price {
+  color: var(--accent);
 }
 
 .project-grid {
@@ -454,8 +469,79 @@ img {
 }
 
 .page-hero {
+  padding: 64px 0;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.025);
+}
+
+.pricing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.price-card {
+  display: flex;
+  min-width: 0;
+  min-height: 100%;
+  flex-direction: column;
+  padding: 28px;
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.price-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent, var(--cyan));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.price-card h2 {
+  margin-top: 24px;
+  color: var(--accent);
+  font-size: 0.84rem;
+}
+
+.package-price {
+  margin: 18px 0 0;
+  color: var(--text);
+  font-family: 'Press Start 2P', 'JetBrains Mono', monospace;
+  font-size: clamp(0.76rem, 1.4vw, 0.95rem);
+}
+
+.hosting-line,
+.turnaround-line {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.turnaround-line {
+  color: var(--text);
+}
+
+.price-card .check-list {
+  margin-top: 22px;
+}
+
+.price-card .btn {
+  width: 100%;
+  margin-top: auto;
+}
+
+.hosting-note {
+  max-width: 880px;
+  margin: 26px auto 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.hosting-note p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.42;
 }
 
 .tabs,
@@ -896,7 +982,8 @@ img {
   }
 
   .card-grid.three,
-  .project-grid {
+  .project-grid,
+  .pricing-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -947,7 +1034,11 @@ img {
   }
 
   .hero {
-    min-height: calc(100svh - 62px);
+    min-height: clamp(430px, 68svh, 560px);
+  }
+
+  .page-hero {
+    padding: 46px 0;
   }
 
   .hero h1,
@@ -986,11 +1077,13 @@ img {
   .form-row,
   .card-grid.three,
   .project-grid,
+  .pricing-grid,
   .process-grid {
     grid-template-columns: 1fr;
   }
 
   .service-card,
+  .price-card,
   .process-step,
   .contact-panel,
   .contact-form,
