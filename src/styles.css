@@ -2,8 +2,8 @@
 
 :root {
   color-scheme: dark;
-  --deep: #0b0f19;
-  --panel: rgba(255, 255, 255, 0.045);
+  --deep: #050505;
+  --panel: rgba(255, 255, 255, 0.035);
   --line: rgba(255, 255, 255, 0.11);
   --muted: #aeb7c7;
   --text: #f7fbff;
@@ -121,7 +121,7 @@ img {
   top: 0;
   z-index: 10;
   border-bottom: 1px solid var(--line);
-  background: rgba(11, 15, 25, 0.9);
+  background: rgba(5, 5, 5, 0.92);
   backdrop-filter: blur(14px);
 }
 
@@ -603,7 +603,7 @@ img {
   padding: 24px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #080c14;
+  background: #060606;
   color: var(--green);
   font-family: 'Press Start 2P', 'JetBrains Mono', monospace;
   font-size: 0.52rem;
@@ -717,7 +717,7 @@ img {
   max-width: 100%;
   margin: 0 auto;
   padding: 14px;
-  background: #080c14;
+  background: #060606;
   box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
   touch-action: none;
 }
@@ -758,7 +758,7 @@ img {
   place-content: center;
   gap: 14px;
   border-radius: 8px;
-  background: rgba(8, 12, 20, 0.82);
+  background: rgba(5, 5, 5, 0.82);
   text-align: center;
   backdrop-filter: blur(5px);
 }
