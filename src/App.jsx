@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { navItems, projects, services } from './data.js';
+import { navItems, projects, services, teamMembers } from './data.js';
 import Arcade from './components/Arcade.jsx';
 import pixelCraftLogo from './assets/PC_Logo_cropped.png';
 
@@ -78,6 +78,7 @@ function App() {
   const Page = useMemo(() => {
     if (path === '/services') return ServicesPage;
     if (path === '/portfolio') return PortfolioPage;
+    if (path === '/teams') return TeamsPage;
     if (path === '/8-bit') return ArcadePage;
     if (path === '/contact') return ContactPage;
     return HomePage;
@@ -190,7 +191,7 @@ function HomePage({ navigate }) {
           <h1>
             <span className="gradient-text">Pixel Perfect.</span>
             <br />
-            Powered by <span className="mono cyan">Code.</span>
+            Built For The <span className="mono cyan">Screen.</span>
           </h1>
           <p className="hero-copy">
             High-performance websites and beautiful graphic design, with Figma and code
@@ -339,6 +340,44 @@ function PortfolioPage({ navigate }) {
         </div>
       </section>
       <Cta navigate={navigate} title="Inspired by the work?" button="Start your project" />
+    </>
+  );
+}
+
+function TeamsPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="// TEAM"
+        title="Meet the crew"
+        copy="Placeholder profiles for the studio roster, ready to be swapped for real bios and portraits."
+      />
+      <section className="section">
+        <div className="container">
+          <div className="team-grid" aria-label="Studio team members">
+            {teamMembers.map((member) => {
+              const initials = member.name
+                .split(' ')
+                .map((part) => part[0])
+                .slice(0, 2)
+                .join('')
+                .toUpperCase();
+
+              return (
+                <article className="team-card" key={member.id}>
+                  <div className="team-avatar" aria-hidden="true">
+                    {initials}
+                  </div>
+                  <h3>{member.name}</h3>
+                  <p className="team-role">{member.role}</p>
+                  <p>{member.bio}</p>
+                  <span className="team-status">{member.status}</span>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

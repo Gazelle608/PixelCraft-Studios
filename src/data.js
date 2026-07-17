@@ -94,10 +94,91 @@ export const projects = [
   }
 ];
 
+export const teamMembers = [
+  {
+    id: 1,
+    name: 'Gazelle Pearson',
+    role: 'CEO/Founder',
+    bio: 'Shapes the studio voice, visual language, and big-picture storytelling.',
+    status: 'Founder'
+  },
+  {
+    id: 2,
+    name: 'Joshua Jacobs',
+    role: 'CFO/Co-Founder',
+    bio: 'Turns layouts into lively, accessible experiences with polished interactions.',
+    status: 'Co-founder'
+  },
+  {
+    id: 3,
+    name: 'Siza Mpafa',
+    role: 'Brand Designer',
+    bio: 'Crafts identity systems, motion concepts, and campaign-ready assets.',
+    status: 'Placeholder'
+  },
+  {
+    id: 4,
+    name: 'Thina Maliwa',
+    role: 'Product Strategist',
+    bio: 'Connects business goals with clear user flows and measurable outcomes.',
+    status: 'Placeholder'
+  },
+  {
+    id: 5,
+    name: 'Natheefah Rayners',
+    role: 'UX Researcher',
+    bio: 'Maps audience needs into practical insights and thoughtful interface choices.',
+    status: 'Placeholder'
+  },
+  {
+    id: 6,
+    name: 'Keanu Visagie',
+    role: 'Motion Artist',
+    bio: 'Brings energy and rhythm to launch content and animated brand moments.',
+    status: 'Placeholder'
+  },
+  {
+    id: 7,
+    name: 'Antonio Williams',
+    role: 'Content Designer',
+    bio: 'Builds copy systems that make product messaging feel clear and human.',
+    status: 'Placeholder'
+  },
+  {
+    id: 8,
+    name: 'Yaqoob Samsodien',
+    role: 'Systems Engineer',
+    bio: 'Keeps projects scalable with thoughtful architecture and reliable implementation.',
+    status: 'Placeholder'
+  },
+  {
+    id: 9,
+    name: 'Phoenix Chung',
+    role: 'Community Manager',
+    bio: 'Guides launch communications, social presence, and client feedback loops.',
+    status: 'Placeholder'
+  },
+  {
+    id: 10,
+    name: 'Lutfeeyah Cupido',
+    role: 'QA & Refinement',
+    bio: 'Polishes details, checks flows, and makes sure every release feels smooth.',
+    status: 'Placeholder'
+  },
+  {
+    id: 11,
+    name: 'Jose Dhlamini',
+    role: 'Operations Lead',
+    bio: 'Keeps timelines, handoffs, and delivery moving without friction.',
+    status: 'Placeholder'
+  }
+];
+
 export const navItems = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/portfolio', label: 'Portfolio' },
+  { href: '/teams', label: 'Teams' },
   { href: '/8-bit', label: '8-bit' },
   { href: '/contact', label: 'Contact' }
 ];
