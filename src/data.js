@@ -171,6 +171,13 @@ export const teamMembers = [
     role: 'Operations Lead',
     bio: 'Keeps timelines, handoffs, and delivery moving without friction.',
     status: 'Placeholder'
+  },
+  {
+    id: 12,
+    name: 'Mogamat Toufeeq Farat',
+    role: 'Creative Technologist',
+    bio: 'Bridges storytelling and code with playful interactions, clever UI moments, and polished digital experiences.',
+    status: 'Placeholder'
   }
 ];
 
