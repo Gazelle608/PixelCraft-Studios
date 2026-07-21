@@ -105,14 +105,14 @@ export const teamMembers = [
   {
     id: 2,
     name: 'Joshua Jacobs',
-    role: 'CFO/Co-Founder',
+    role: 'CTO/Co-Founder',
     bio: 'Turns layouts into lively, accessible experiences with polished interactions.',
     status: 'Co-founder'
   },
   {
     id: 3,
-    name: 'Siza Mpafa',
-    role: 'Brand Designer',
+    name: 'Natheefah Rayners',
+    role: 'COO',
     bio: 'Crafts identity systems, motion concepts, and campaign-ready assets.',
     status: 'Placeholder'
   },
@@ -125,7 +125,7 @@ export const teamMembers = [
   },
   {
     id: 5,
-    name: 'Natheefah Rayners',
+    name: 'Siza Mpafa',
     role: 'UX Researcher',
     bio: 'Maps audience needs into practical insights and thoughtful interface choices.',
     status: 'Placeholder'
