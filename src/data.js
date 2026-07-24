@@ -1,3 +1,6 @@
+import gazellePortrait from './assets/team/Gazelle-8-bit.jpg';
+import gazelleProfile from './assets/team/Gazelle-Portfolio.jpg';
+
 export const services = [
   {
     id: 'one-page',
@@ -94,90 +97,151 @@ export const projects = [
   }
 ];
 
+const createPortraitSvg = (name, accent, secondaryAccent) => {
+  const safeName = name.replace(/'/g, '').trim();
+  const initials = safeName
+    .split(' ')
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+      <rect width="600" height="800" fill="#050505" />
+      <rect x="50" y="50" width="500" height="700" rx="32" fill="#0e1722" stroke="${accent}" stroke-width="6" />
+      <circle cx="300" cy="290" r="128" fill="${accent}" opacity="0.18" />
+      <circle cx="300" cy="290" r="92" fill="${secondaryAccent}" opacity="0.24" />
+      <path d="M208 590c24-128 160-128 184 0" fill="${accent}" opacity="0.26" />
+      <path d="M190 680h220" stroke="#f7fbff" stroke-width="8" stroke-linecap="round" />
+      <text x="300" y="748" text-anchor="middle" fill="#f7fbff" font-size="34" font-family="Arial, sans-serif">${safeName}</text>
+      <text x="300" y="110" text-anchor="middle" fill="${accent}" font-size="44" font-family="Arial, sans-serif">${initials}</text>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
+
 export const teamMembers = [
   {
     id: 1,
     name: 'Gazelle Pearson',
     role: 'CEO/Founder',
     bio: 'Shapes the studio voice, visual language, and big-picture storytelling.',
-    status: 'Founder'
+    status: 'Founder',
+    image: gazellePortrait,
+    secondaryImage: gazelleProfile,
+    imageAlt: 'Portrait of Gazelle Pearson'
   },
   {
     id: 2,
     name: 'Joshua Jacobs',
     role: 'CTO/Co-Founder',
     bio: 'Turns layouts into lively, accessible experiences with polished interactions.',
-    status: 'Co-founder'
+    status: 'Co-founder',
+    image: createPortraitSvg('Joshua Jacobs', '#b026ff', '#00e5ff'),
+    secondaryImage: createPortraitSvg('Joshua Jacobs', '#39ff14', '#00e5ff'),
+    imageAlt: 'Portrait of Joshua Jacobs'
   },
   {
     id: 3,
     name: 'Natheefah Rayners',
     role: 'COO',
     bio: 'Crafts identity systems, motion concepts, and campaign-ready assets.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Natheefah Rayners', '#39ff14', '#00e5ff'),
+    secondaryImage: createPortraitSvg('Natheefah Rayners', '#00e5ff', '#b026ff'),
+    imageAlt: 'Portrait of Natheefah Rayners'
   },
   {
     id: 4,
     name: 'Thina Maliwa',
     role: 'Product Strategist',
     bio: 'Connects business goals with clear user flows and measurable outcomes.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Thina Maliwa', '#00e5ff', '#39ff14'),
+    secondaryImage: createPortraitSvg('Thina Maliwa', '#b026ff', '#00e5ff'),
+    imageAlt: 'Portrait of Thina Maliwa'
   },
   {
     id: 5,
     name: 'Siza Mpafa',
     role: 'UX Researcher',
     bio: 'Maps audience needs into practical insights and thoughtful interface choices.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Siza Mpafa', '#b026ff', '#39ff14'),
+    secondaryImage: createPortraitSvg('Siza Mpafa', '#00e5ff', '#b026ff'),
+    imageAlt: 'Portrait of Siza Mpafa'
   },
   {
     id: 6,
     name: 'Keanu Visagie',
     role: 'Motion Artist',
     bio: 'Brings energy and rhythm to launch content and animated brand moments.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Keanu Visagie', '#39ff14', '#b026ff'),
+    secondaryImage: createPortraitSvg('Keanu Visagie', '#00e5ff', '#39ff14'),
+    imageAlt: 'Portrait of Keanu Visagie'
   },
   {
     id: 7,
     name: 'Antonio Williams',
     role: 'Content Designer',
     bio: 'Builds copy systems that make product messaging feel clear and human.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Antonio Williams', '#00e5ff', '#b026ff'),
+    secondaryImage: createPortraitSvg('Antonio Williams', '#39ff14', '#00e5ff'),
+    imageAlt: 'Portrait of Antonio Williams'
   },
   {
     id: 8,
     name: 'Yaqoob Samsodien',
     role: 'Systems Engineer',
     bio: 'Keeps projects scalable with thoughtful architecture and reliable implementation.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Yaqoob Samsodien', '#b026ff', '#00e5ff'),
+    secondaryImage: createPortraitSvg('Yaqoob Samsodien', '#39ff14', '#b026ff'),
+    imageAlt: 'Portrait of Yaqoob Samsodien'
   },
   {
     id: 9,
     name: 'Phoenix Chung',
     role: 'Community Manager',
     bio: 'Guides launch communications, social presence, and client feedback loops.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Phoenix Chung', '#39ff14', '#00e5ff'),
+    secondaryImage: createPortraitSvg('Phoenix Chung', '#00e5ff', '#39ff14'),
+    imageAlt: 'Portrait of Phoenix Chung'
   },
   {
     id: 10,
     name: 'Lutfeeyah Cupido',
     role: 'QA & Refinement',
     bio: 'Polishes details, checks flows, and makes sure every release feels smooth.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Lutfeeyah Cupido', '#00e5ff', '#b026ff'),
+    secondaryImage: createPortraitSvg('Lutfeeyah Cupido', '#b026ff', '#39ff14'),
+    imageAlt: 'Portrait of Lutfeeyah Cupido'
   },
   {
     id: 11,
     name: 'Jose Dhlamini',
     role: 'Operations Lead',
     bio: 'Keeps timelines, handoffs, and delivery moving without friction.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Jose Dhlamini', '#b026ff', '#00e5ff'),
+    secondaryImage: createPortraitSvg('Jose Dhlamini', '#39ff14', '#00e5ff'),
+    imageAlt: 'Portrait of Jose Dhlamini'
   },
   {
     id: 12,
     name: 'Mogamat Toufeeq Farat',
     role: 'Creative Technologist',
     bio: 'Bridges storytelling and code with playful interactions, clever UI moments, and polished digital experiences.',
-    status: 'Placeholder'
+    status: 'Placeholder',
+    image: createPortraitSvg('Mogamat Toufeeq Farat', '#39ff14', '#00e5ff'),
+    secondaryImage: createPortraitSvg('Mogamat Toufeeq Farat', '#00e5ff', '#b026ff'),
+    imageAlt: 'Portrait of Mogamat Toufeeq Farat'
   }
 ];
 

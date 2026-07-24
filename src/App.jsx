@@ -207,7 +207,7 @@ function HomePage({ navigate }) {
           </div>
           <div className="skill-strip">
             <span>UI/UX</span>
-            <span>React / Next</span>
+            <span>React.js / Next.js</span>
             <span>Tailwind</span>
           </div>
         </div>
@@ -345,6 +345,19 @@ function PortfolioPage({ navigate }) {
 }
 
 function TeamsPage() {
+  const [activeMember, setActiveMember] = useState(null);
+
+  useEffect(() => {
+    if (!activeMember) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setActiveMember(null);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [activeMember]);
+
   return (
     <>
       <PageHero
@@ -364,20 +377,60 @@ function TeamsPage() {
                 .toUpperCase();
 
               return (
-                <article className="team-card" key={member.id}>
+                // Clickable team card opens the profile modal.
+                <button
+                  className="team-card team-card-button"
+                  type="button"
+                  key={member.id}
+                  onClick={() => setActiveMember(member)}
+                >
                   <div className="team-avatar" aria-hidden="true">
-                    {initials}
+                    {member.image ? (
+                      <img src={member.image} alt={member.imageAlt || member.name} />
+                    ) : (
+                      initials
+                    )}
                   </div>
                   <h3>{member.name}</h3>
                   <p className="team-role">{member.role}</p>
                   <p>{member.bio}</p>
                   <span className="team-status">{member.status}</span>
-                </article>
+                </button>
               );
             })}
           </div>
         </div>
       </section>
+
+      {activeMember && (
+        <div className="team-modal-backdrop" role="presentation" onClick={() => setActiveMember(null)}>
+          <div
+            className="team-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="team-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button className="team-modal-close" type="button" aria-label="Close profile" onClick={() => setActiveMember(null)}>
+              ×
+            </button>
+            <img
+              className="team-modal-image"
+              src={activeMember.secondaryImage || activeMember.image}
+              alt={activeMember.imageAlt || `${activeMember.name} portrait`}
+            />
+            <div className="team-modal-content">
+              <p className="team-role team-modal-role">{activeMember.role}</p>
+              <h3 id="team-modal-title">{activeMember.name}</h3>
+              <p>{activeMember.bio}</p>
+              <p className="team-modal-description">
+                A polished profile preview with room for a real portrait, a fuller story, and future contact details.
+              </p>
+              <span className="team-status">{activeMember.status}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
